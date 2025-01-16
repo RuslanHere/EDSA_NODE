@@ -4,7 +4,7 @@ import server from "./server";
 function Transfer({ address, setBalance }) {
   const [sendAmount, setSendAmount] = useState("");
   const [recipient, setRecipient] = useState("");
-
+  const [privateKey, setPrivateKey] = useState("");
   const setValue = (setter) => (evt) => setter(evt.target.value);
 
   async function transfer(evt) {
@@ -17,6 +17,7 @@ function Transfer({ address, setBalance }) {
         sender: address,
         amount: parseInt(sendAmount),
         recipient,
+        privateKey: privateKey,
       });
       setBalance(balance);
     } catch (ex) {
@@ -46,6 +47,14 @@ function Transfer({ address, setBalance }) {
         ></input>
       </label>
 
+      <label>
+        Private Key
+        <input
+          placeholder="Type an private key for signing the message"
+          value={privateKey}
+          onChange={setValue(setPrivateKey)}
+        ></input>
+      </label>
       <input type="submit" className="button" value="Transfer" />
     </form>
   );
